@@ -1,0 +1,23 @@
+---
+#YAML documents begins with the document seperator ---
+
+-
+
+  hosts: all
+  gather_facts: False
+
+  #Tasks that will be executed with the playbook
+  tasks:
+    - name: install apache
+      become: true
+      apt: name=apache2 state=present update_cache=yes
+
+    - name: apache started
+      become: true
+      service: name=apache2 state=started enabled=yes
+
+    - name: copy website
+      become: true
+      ansible.builtin.copy:
+        src: ../build/
+        dest: /var/www/html
