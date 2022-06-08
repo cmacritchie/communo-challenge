@@ -13,7 +13,6 @@ export const deleteDBTodos = (id) => {
 }
 
 export const patchDBTools = (id, updatedTodo) => {
-    console.log("Db entry", id, updatedTodo)
     delete updatedTodo.id
     return db.todos.update(id, updatedTodo)
 }

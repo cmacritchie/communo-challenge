@@ -1,5 +1,16 @@
 .App {
   text-align: center;
+  background-image: url(../public/communo-pattern.png);
+  background-repeat: repeat;
+}
+
+.App-content {
+  width: 50%;
+  margin-left: 25%;
+  background-color: white;
+  border: 1px solid black;
+  min-height: 100vh;
+
 }
 
 .App-logo {
@@ -36,4 +47,35 @@
   100% {
     transform: translateY(0px);
   }
+}
+
+.communo-red {
+  background-color: #f05555;
+  color: #fff;
+}
+
+.warning {
+  color: red;
+  font-weight: bold;
+}
+
+.success {
+  color: green;
+}
+
+.card-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  margin: 5px 5px;
+}
+
+.add-todo {
+  background-color:antiquewhite;
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
 }

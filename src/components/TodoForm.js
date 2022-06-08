@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useSelector } from "react-redux"
 
-
+//defaultProps are deprecated
 const  defaultToDo = {
     description:"",
     completed: false
@@ -17,7 +17,6 @@ export default ({ id, onSubmit, onCancel, existingTodo = defaultToDo }) => {
         e.preventDefault()
         const warnings = validator(todoForm.description)
         if(warnings.length > 0) {
-            // console.log("warnings")
             setWarning(warnings)
         }
         else {
@@ -26,14 +25,13 @@ export default ({ id, onSubmit, onCancel, existingTodo = defaultToDo }) => {
     }
 
     const validator = (text) => {
-        console.log(existingToDos, id)
         const warnings = []
         if(text.trim().length === 0) {
-            warnings.push('to-do cannot be empty!')
+            warnings.push('To-Do cannot be empty!')
         }
         if(!(existingToDos.every(todo => 
             todo.description.trim().toLowerCase() !== text.trim().toLowerCase() || id === todo.id))) {
-            warnings.push('to-do already exists')
+            warnings.push('To-Do already exists')
         }
         //other validation
         return warnings
@@ -43,39 +41,35 @@ export default ({ id, onSubmit, onCancel, existingTodo = defaultToDo }) => {
     return (
         <div className="row">
             <form id={`todoform-${id}`} onSubmit={submitForm} className="col s12">
-            <div className="row">
-                <div className="input-field col s12">
-                <label htmlFor="textarea1">Add Todo</label>
-                <textarea 
-                    value={todoForm.description} 
-                    onChange={e => setTodoForm({ ...todoForm, description: e.target.value})} 
-                    id="textarea1"
-                    maxLength="25"
-                    className={`materialize-textarea ${todoForm.completed ? 'strikethrough' : ''}`} />
-                </div>
-                <div>{warning.map((warn, index) => <span key={index}>{warn}</span>)}</div>
+                <div className="row">
+                    <div className="input-field col s12">
+                    <label htmlFor="textarea1">Add To-Do</label>
+                    <textarea 
+                        value={todoForm.description} 
+                        onChange={e => setTodoForm({ ...todoForm, description: e.target.value})} 
+                        id="textarea1"
+                        maxLength="25"
+                        className={`materialize-textarea ${todoForm.completed ? 'strikethrough' : ''}`} />
+                    </div>
+                <div className="warning">{warning.map((warn, index) => <span key={index}>{warn}</span>)}</div>
             </div>
             </form>
             <div>
                 <button className="btn blue darken-4 waves-effect waves-light" onClick={() => setTodoForm({...todoForm, completed:!todoForm.completed})}>
-                    {todoForm.completed ? 'Mark Complete' : 'Mark Incomplete'}
+                    {todoForm.completed ? 
+                        <i className="material-icons warning right">close</i> : 
+                        <i className="material-icons success right">check</i>}
+                    {todoForm.completed ? 'Mark Incomplete' : 'Mark Complete'}
                 </button>
                 <button form={`todoform-${id}`} className="btn waves-effect waves-light" type="submit">
                     <i className="material-icons right">send</i>
                     Submit
                 </button>
-                <button onClick={()=>onCancel()} className="btn yellow lighten-3 waves-effect waves-light" >
-                    <i className="material-icons right">send</i>
+                <button onClick={()=>onCancel()} className="btn amber lighten-1 waves-effect waves-light" >
+                    <i className="material-icons right">close</i>
                     Cancel
                 </button>
             </div>
         </div>
-        // <div>
-        //     <form onSubmit={submitForm}>
-        //         <textarea onChange={e => setDesription(e.target.value)} 
-        //         id="w3review" name="w3review" rows="4" cols="50" />
-        //         <button type="submit">Submit</button>
-        //     </form>
-        // </div>
     )
 }
